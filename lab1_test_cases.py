@@ -19,6 +19,7 @@ class TestLab1(unittest.TestCase):
         #Checks if the function itself works and returns a reversed list
         t_list = reverse_rec([8,-2,5,9])
         self.assertEqual(t_list,[9,5,-2,8])
+        self.assertEqual(reverse_rec([5,4,3]),[3,4,5])
         #Checks if the function catches a None type
         t2_list = None
         with self.assertRaises(ValueError):
@@ -30,7 +31,10 @@ class TestLab1(unittest.TestCase):
         list_val =[0,1,2,3,4,4,8,9,10]
         low = 0
         high = len(list_val)-1
-        self.assertEqual(bin_search(4, 0, len(list_val)-1, list_val), 4 )
+        self.assertEqual(bin_search(4, 0, len(list_val)-1, list_val), 4)
+        self.assertEqual(bin_search(8, 2, 6, list_val), 6)
+        #Checks if the function can find a value at index 0 because if there wasn't another variable that stayed constant, the function would loop forever
+        self.assertEqual(bin_search(0, 0, 6, list_val), 0)
         #Checks if the function catches a None type
         list2_val = None
         with self.assertRaises(ValueError):

@@ -20,17 +20,36 @@ def reverse_rec(int_list,new_list = [],counter = 0,index = 0):   # must use recu
    if counter == 0:
       index = len(int_list) - 1
       counter = 1
+      new_list = []
    if index < 0:
       return new_list
    new_list.append(int_list[index])
    return reverse_rec(int_list,new_list, counter, index - counter)
 
 
-def bin_search(target, low, high, int_list):  # must use recursion
+def bin_search(target, low, high, int_list, median = 0, counter = 0, status = 0):  # must use recursion
    if int_list == None:
       raise ValueError
-   if int_list[low] == target:
-      return low
-   if low == high:
+   if status == 0:
+      median = (high + low)//2
+      if type(median) == float:
+         if abs(int_list[int(median)] - target) < abs(int_list[int(median)-1] - target):
+            median = int(median)
+            counter = True
+         else:
+            median = int(median) - 1
+            counter = False
+      else:
+         if (abs(int_list[median + 1] - target)) < (abs(int_list[median-1] - target)):
+            counter = True
+         else:
+            counter = False
+      status = 1
+   if int_list[median] == target:
+      return median
+   if median == low or median == high:
       return None
-   return bin_search(target, low + 1, high, int_list)
+   if counter == True:
+      return bin_search(target, low, high, int_list, median + 1, counter, status)
+   if counter == False:
+      return bin_search(target, low, high, int_list, median - 1, counter, status)
