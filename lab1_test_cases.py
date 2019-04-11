@@ -14,6 +14,8 @@ class TestLab1(unittest.TestCase):
         #Checks if the function itself finds the maxiumum integer and returns it, with the list containing positive, negative, and identical numbers
         self.assertEqual(max_list_iter([2,1,1,5,8,8,-2,-203,-941]), 8)
         self.assertEqual(max_list_iter([-448,-203,-941]), -203)
+        #Checks when the list just has one element
+        self.assertEqual(max_list_iter([4]),4)
 
     def test_reverse_rec(self):
         #Checks if the function itself works and returns a reversed list
@@ -40,10 +42,11 @@ class TestLab1(unittest.TestCase):
         with self.assertRaises(ValueError):
             bin_search(5, 0, 4, list2_val)
         #Checks if the function returns a None type if it can't find the target
-        list3_val = [4,5,1,3,5,7]
-        low2 = 2
-        high2 = 3
-        self.assertEqual(bin_search(4, low2, high2, list3_val), None)
+        list3_val = [-2,3,6,9,10]
+        self.assertEqual(bin_search(4, 2, 3, list3_val), None)
+        #Checks if the function works with float median values
+        self.assertEqual(bin_search(10, 1, 4, list3_val), 4)
+        self.assertEqual(bin_search(7, 0, 5, [4,5,1,3,5,7]),5)
 
 if __name__ == "__main__":
         unittest.main()

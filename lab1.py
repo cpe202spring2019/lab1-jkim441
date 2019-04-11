@@ -31,16 +31,17 @@ def bin_search(target, low, high, int_list, median = 0, counter = 0, status = 0)
    if int_list == None:
       raise ValueError
    if status == 0:
-      median = (high + low)//2
-      if type(median) == float:
-         if abs(int_list[int(median)] - target) < abs(int_list[int(median)-1] - target):
-            median = int(median)
+      median = (high + low)/2
+      if median.is_integer() == False:
+         if abs(int_list[int(median) + 1] - target) < abs(int_list[int(median)] - target):
+            median = int(median) + 1
             counter = True
          else:
-            median = int(median) - 1
+            median = int(median)
             counter = False
       else:
-         if (abs(int_list[median + 1] - target)) < (abs(int_list[median-1] - target)):
+         median = int(median)
+         if abs(int_list[median + 1] - target) < abs(int_list[median-1] - target):
             counter = True
          else:
             counter = False
