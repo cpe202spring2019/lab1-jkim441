@@ -22,6 +22,8 @@ class TestLab1(unittest.TestCase):
         t_list = reverse_rec([8,-2,5,9])
         self.assertEqual(t_list,[9,5,-2,8])
         self.assertEqual(reverse_rec([5,4,3]),[3,4,5])
+        #Checks if it returns one element
+        self.assertEqual(reverse_rec([5]), [5])
         #Checks if the function catches a None type
         t2_list = None
         with self.assertRaises(ValueError):
@@ -31,22 +33,21 @@ class TestLab1(unittest.TestCase):
     def test_bin_search(self):
         #Checks if function returns the index of the target number even with repeating numbers. It will return the first index in which that repeating number appears
         list_val =[0,1,2,3,4,4,8,9,10]
-        low = 0
-        high = len(list_val)-1
         self.assertEqual(bin_search(4, 0, len(list_val)-1, list_val), 4)
         self.assertEqual(bin_search(8, 2, 6, list_val), 6)
-        #Checks if the function can find a value at index 0 because if there wasn't another variable that stayed constant, the function would loop forever
-        self.assertEqual(bin_search(0, 0, 6, list_val), 0)
         #Checks if the function catches a None type
         list2_val = None
         with self.assertRaises(ValueError):
             bin_search(5, 0, 4, list2_val)
         #Checks if the function returns a None type if it can't find the target
         list3_val = [-2,3,6,9,10]
-        self.assertEqual(bin_search(4, 2, 3, list3_val), None)
+        self.assertEqual(bin_search(4, 0, len(list3_val), list3_val), None)
         #Checks if the function works with float median values
         self.assertEqual(bin_search(10, 1, 4, list3_val), 4)
         self.assertEqual(bin_search(7, 0, 5, [4,5,1,3,5,7]),5)
+        self.assertEqual(bin_search(5,0,4,[0,5,20,60,72]), 1)
+        #Checks if the low is higher than the high
+        self.assertEqual(bin_search(9,5,4,[9,1,5,4]), None)
 
 if __name__ == "__main__":
         unittest.main()
